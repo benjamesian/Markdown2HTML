@@ -17,7 +17,7 @@ if __name__ == '__main__':
             for line in f:
                 if IN_LIST:
                     if line.startswith('- '):
-                        out.write(f'<li>{line[:-1]}</li>')
+                        out.write('<li>{}</li>'.format(line[:-1]))
                     else:
                         out.write('</ul>\n')
                         IN_LIST = False
@@ -25,12 +25,13 @@ if __name__ == '__main__':
                 match = re.match('^#{1,6} ', line)
                 if match:
                     level = len(match.group().strip())
-                    out.write(f"<h{level}>{line[level+1:-1]}</h{level}>\n")
+                    out.write("<h{}>{}</h{}>\n".format(
+                        level, line[level+1:-1], level))
                     continue
 
                 if line.startswith('- '):
                     IN_LIST = True
-                    out.write(f'<ul>\n<li>{line[:-1]}</li>\n')
+                    out.write('<ul>\n<li>{}</li>\n'.format(line[:-1]))
                 else:
                     out.write(line)
     except FileNotFoundError:
