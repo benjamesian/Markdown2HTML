@@ -33,5 +33,6 @@ if __name__ == '__main__':
                     out.write(line)
     except FileNotFoundError:
         print("Missing {}".format(sys.argv[1]), file=sys.stderr)
+        sys.exit(1)
 
     sys.exit(0)
